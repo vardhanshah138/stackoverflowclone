@@ -125,6 +125,5 @@ def view_answer(request,id):
 	validate_login(request)
 	print(request.user.id)
 	ques = Question.objects.get(pk=id)
-	answers = Answer.objects.all().filter(question = ques)
-
-	return render(request,"userapp/view_feed.html",{"ans" : answers,"ques":ques})
+	answers = Answer.objects.filter(question = id)
+	return render(request,"userapp/view_answers.html",{"ans" : answers,"ques":ques})
