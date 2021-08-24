@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Overflow</title>
+    <link rel="stylesheet" href="{% static 'userapp/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">        
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+
+</head>
+<body>
+
+
+<div class="page-wrapper chiller-theme">
+
+  <main class="page-content">
+    
+       <div class="container mt-5">
+        <h2 class="text-center alert alert-danger">User</h2>
+        {% block content %}
+        {% endblock %}
+        </div>
+  </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+    
+    
+   
+
+
+
+
+    <script src="{% static 'userapp/js/jquery.js' %}"></script>
+    <script src="{% static 'userapp/js/popper.js' %}"></script>
+    <script src="{% static 'userapp/js/bootstrap.js' %}"></script>
+    
+
+</body>
+</html>
