@@ -6,45 +6,42 @@
     {% if ques %}
     <h4 class="text-center alert alert-info">Question List</h4>
     
-    <table class="table table-hover">
-        <tbody>
-            <tr>
-                <th>Sr.no</th>
-                <th>Author </th>
-                <th>Title </th>
-                <th>Accepted </th>
-                <th>Tags </th>
-                <th>Edit / Delete </th>
-                <th>Body </th>
-
-            </tr>
-            
+    
+    {% if ques %}
+    
+    
             {% for question in ques %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{question.author}}</td>
-                <td width="300px">{{question.title}}</td>
+            
+                <h1>Q. {{forloop.counter}} {{question.title}}</h1>
                 
-                <td>{{question.status}}</td>
-                <td>{% for t in question.tags.all %}
-                     <span class="badge badge-info">{{t}}</span>
-                {% endfor %}</td>
+                {% if  question.tags.all %}
                 
+                {% for t in question.tags.all %}
+                    <span class="badge badge-info">{{t}}</span>
+                {% endfor %}
+                {% else %}
+                <p>No Tags added</p>
+
+                {% endif %}
+
                 
-                <td>
-                    <a href="{% url 'update_question' question.id %}" class="btn btn-warning">Edit</a>
-                    <form action="{% url 'delete_question' question.id %}" class="d-inline" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                    </form>
-                </td>
-                <td><textarea>{{question.body}}</textarea></td>
-            </tr>
+                <p style="font-size:20px;">Description :- {{question.body}}</p>
+                <p>  Author :- {{question.author}} <p>
+
+                
+                <p>Resolved :- {{question.status}}</p>
+                
+                <a href="{% url 'view_answer' question.id %}" class="btn btn-success">View All Answers</a>
+                <br>
+                <br>
+                <br>    
+            
             {% endfor %}
-            </th>
-        </tbody>
-        
-    </table>
+            
+    {% else %}
+    <h4 class="text-center alert alert-info">No Questions added</h4>
+
+    {% endif %}
     {% else %}
     <h4 class="text-center alert alert-info">No Questions added</h4>
 
