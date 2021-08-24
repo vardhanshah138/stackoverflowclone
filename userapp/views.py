@@ -5,7 +5,9 @@ from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages #import messages
 from django.contrib.auth.forms import AuthenticationForm #add this
 from django.contrib.auth.decorators import login_required #to not use any functionalities without login.
-
+from taggit.models import Tag
+from django.template.defaultfilters import slugify
+from django.views.generic import ListView
 # Create your views here.
 username = "admin"
 def success(request):
@@ -62,8 +64,10 @@ def add_question(request):
 	if request.method == "POST":
 		p1 = QuestionForm(request.POST)
 		if p1.is_valid():
-			temp1 = p1.cleaned_data
-			Question.objects.create(author=request.user,title = temp1["title"],body = temp1["body"],status = temp1["status"])
+			obj = p1.save(commit=False)
+			obj.author=request.user
+			obj.save()
+			p1.save_m2m()
 			p1 = QuestionForm()
 			messages.success(request, "Question added successfully." )
 	else:
@@ -80,7 +84,6 @@ def view_question(request):
 
 def view_feed(request):
 	validate_login(request)
-	print(request.user.id)
 	questions = Question.objects.all()
 	return render(request,"userapp/view_feed.html",{"ques" : questions})
 
@@ -127,3 +130,5 @@ def view_answer(request,id):
 	ques = Question.objects.get(pk=id)
 	answers = Answer.objects.filter(question = id)
 	return render(request,"userapp/view_answers.html",{"ans" : answers,"ques":ques})
+
+

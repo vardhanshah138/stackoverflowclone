@@ -23,7 +23,7 @@ class NewUserForm(UserCreationForm):
 class QuestionForm(forms.ModelForm):
 	class Meta:
 		model = Question
-		fields = ["title","body","status"]
+		fields = ["title","body","status","tags"]
 		widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -8,6 +9,7 @@ class Question(models.Model):
     title = models.CharField(max_length = 255)
     body = models.TextField()
     status = models.BooleanField(default=False)
+    tags = TaggableManager()
 
 class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE)

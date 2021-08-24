@@ -14,6 +14,8 @@
                 <th>Title </th>
                 <th>Body </th>
                 <th>Status </th>
+                <th>Tags </th>
+                <th>Edit / Delete </th>
                 
             </tr>
             
@@ -24,6 +26,11 @@
                 <td>{{question.title}}</td>
                 <td>{{question.body}}</td>
                 <td>{{question.status}}</td>
+                <td>{% for t in question.tags.all %}
+                    {{t}}
+                {% endfor %}</td>
+                
+                
                 <td>
                     <a href="{% url 'update_question' question.id %}" class="btn btn-warning">Edit</a>
                     <form action="{% url 'delete_question' question.id %}" class="d-inline" method="post">
