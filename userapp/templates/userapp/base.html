@@ -17,7 +17,11 @@
 <body>
 
 
-<div class="page-wrapper chiller-theme">
+<div class="page-wrapper chiller-theme {% if user.is_authenticated %} toggled {% endif %}">
+
+{% if user.is_authenticated %}
+  {% include  'userapp/sidebar.html'%}
+{% endif %}
 
   <main class="page-content">
     
@@ -41,6 +45,7 @@
     <script src="{% static 'userapp/js/jquery.js' %}"></script>
     <script src="{% static 'userapp/js/popper.js' %}"></script>
     <script src="{% static 'userapp/js/bootstrap.js' %}"></script>
+    <script src="{% static 'userapp/js/sidebar.js' %}"></script>
     <script>
     $(document).ready(function() {
         // messages timeout for 10 sec 

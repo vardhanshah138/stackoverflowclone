@@ -23,7 +23,7 @@ def register_request(request):
 			login(request, user)
 			messages.success(request, "Registration successful." )
 			print("You are now logged in as")
-			return HttpResponseRedirect('/stackovf/success')
+			return HttpResponseRedirect('/success')
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm
 	return render (request,"userapp/register.html", context={"register_form":form})
@@ -39,7 +39,7 @@ def login_request(request):
 				login(request, user)
 				messages.info(request,"You are now logged in as." + username)
 				print("You are now logged in as")
-				return HttpResponseRedirect('/stackovf/success')
+				return HttpResponseRedirect('/success')
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
@@ -51,7 +51,7 @@ def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
 	print("You have Succesfully Logged out.")
-	return HttpResponseRedirect('/stackovf/success')
+	return HttpResponseRedirect('/success')
 
 
 def validate_login(request):
