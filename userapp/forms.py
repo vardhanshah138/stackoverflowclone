@@ -32,8 +32,8 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
 	class Meta:
 		model = Answer
-		fields=["body"]
+		fields=["text"]
 		widgets = {
-			"body": forms.Textarea(attrs={"class": "form-control"}),
+			"text": forms.Textarea(attrs={"class": "form-control"}),
 		}
 	

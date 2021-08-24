@@ -6,34 +6,35 @@
     {% if ques %}
     <h4 class="text-center alert alert-info">Question List</h4>
     
-    <table class="table table-hover">
-        <tbody>
-            <tr>
-                <th>Sr.no</th>
-                <th>Author </th>
-                <th>Title </th>
-                <th>Body </th>
-                <th>Status </th>
-                
-            </tr>
-            
             {% for question in ques %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{question.author}}</td>
-                <td>{{question.title}}</td>
-                <td>{{question.body}}</td>
-                <td>{{question.status}}</td>
-                <td>
-                <a href="{% url 'add_answer' question.id %}" class="btn btn-warning">Answer</a>
-                <a href="{% url 'view_answer' question.id %}" class="btn btn-warning">View All Answers</a>
-                </td>
-            </tr>
+            
+                <h1>Q. {{forloop.counter}} {{question.title}}</h1>
+                
+                {% if  question.tags.all %}
+                
+                {% for t in question.tags.all %}
+                    <span class="badge badge-info">{{t}}</span>
+                {% endfor %}
+                {% else %}
+                <p>No Tags added</p>
+
+                {% endif %}
+
+                
+                <p style="font-size:20px;">Description :- {{question.body}}</p>
+                <p>  Author :- {{question.author}} <p>
+
+                
+                <p>Resolved :- {{question.status}}</p>
+                
+                <a href="{% url 'add_answer' question.id %}" class="btn btn-primary">Answer</a>
+                <a href="{% url 'view_answer' question.id %}" class="btn btn-success">View All Answers</a>
+                <br>
+                <br>
+                <br>    
+            
             {% endfor %}
-            </th>
-        </tbody>
-        
-    </table>
+            
     {% else %}
     <h4 class="text-center alert alert-info">No Questions added</h4>
 

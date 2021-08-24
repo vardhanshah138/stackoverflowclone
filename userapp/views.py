@@ -11,7 +11,7 @@ from django.views.generic import ListView
 # Create your views here.
 username = "admin"
 def success(request):
-	print(request.user)
+	validate_login(request)
 	return render(request,'userapp/success.html')
 
 
@@ -23,7 +23,7 @@ def register_request(request):
 			login(request, user)
 			messages.success(request, "Registration successful." )
 			print("You are now logged in as")
-			return HttpResponseRedirect('/success')
+			return HttpResponseRedirect('/view_feed')
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm
 	return render (request,"userapp/register.html", context={"register_form":form})
@@ -39,7 +39,7 @@ def login_request(request):
 				login(request, user)
 				messages.info(request,"You are now logged in as." + username)
 				print("You are now logged in as")
-				return HttpResponseRedirect('/success')
+				return HttpResponseRedirect('/view_feed')
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
@@ -48,10 +48,11 @@ def login_request(request):
 	return render(request, "userapp/authlogin.html", {"login_form":form})    
 
 def logout_request(request):
+	validate_login(request)
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
 	print("You have Succesfully Logged out.")
-	return HttpResponseRedirect('/success')
+	return HttpResponseRedirect('/')
 
 
 def validate_login(request):
@@ -116,7 +117,7 @@ def add_answer(request,id):
 		p1 = AnswerForm(request.POST)
 		if p1.is_valid():
 			temp1 = p1.cleaned_data
-			Answer.objects.create(user=request.user,question = ques,body = temp1["body"])
+			Answer.objects.create(user=request.user,question = ques,text = temp1["text"])
 			p1 = AnswerForm()
 			messages.success(request, "Answer added successfully." )
 	else:

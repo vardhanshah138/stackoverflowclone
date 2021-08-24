@@ -3,38 +3,30 @@
 {% block content %}
 <div class="row">
 <div class="col-sm-12">
-    {% if ans %}
+    
     <h4 class="text-center alert alert-info">Question :- {{ques.title}}</h4>
     
-    <table class="table table-hover">
-        <tbody>
-            <tr>
-                <th>Sr.no</th>
-                <th>Author </th>
-                <th>Body </th>
-                
-                
-            </tr>
-            
-            {% for answer in ans %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{answer.user}}</td>
-                <td>{{answer.body}}</td>
-                
-                <td>
-                <a href="{% url 'add_answer' ques.id %}" class="btn btn-warning">Add your answer</a>
-                
-                </td>
-            </tr>
-            {% endfor %}
-            </th>
-        </tbody>
-        
-    </table>
-    {% else %}
-    <h4 class="text-center alert alert-info">No Answers added</h4>
+    <p class=""> Tags :-  
+                {% if  ques.tags.all %}
+                {% for t in ques.tags.all %}
+                {{t}}
+                {% endfor %}
+                {% else %}
+                No Tags added.
+                {% endif %}
+    </p>
 
+    {% if ans %}
+
+    {% for answer in ans %}
+       <div class="left-align alert alert-danger">
+        <p> Ans {{ forloop.counter }}. by <b>{{answer.user}}</b></p>
+        <p>Answer :- {{answer.text}}</p>
+        </div>
+    {% endfor %}
+    {% else %}
+    No Answers Yet. 
+    <a href="{% url 'add_answer' ques.id %}" class="btn btn-warning">Add your answer</a>
     {% endif %}
 </div>
 </div>

@@ -4,13 +4,15 @@
 <div class="row">
 <div class="col-sm-12">
     <h4 class="text-center alert alert-info">Add new Answer</h4>
-    <p>Question :- {{ques.title}}</p>
+    <h3>Question :- {{ques.title}}</h3>
+    <p style="font-size:20px;">Description :- {{ques.body}}</p>
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Add" class="btn btn-success">
         <input type="reset" value="Reset" class="btn btn-danger">
-        <!--<a href="{% url 'add_question' %}" class="btn btn-info">Back to Question List</a>-->
+        
+        <a href="{% url 'view_feed' %}" class="btn btn-info">Back to Question List</a>
     </form>
 </div>
 </div>
