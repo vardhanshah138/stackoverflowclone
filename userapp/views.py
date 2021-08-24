@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render,HttpResponseRedirect
+from django.shortcuts import redirect, render,HttpResponseRedirect,get_object_or_404
 from .forms import *
 from .models import *
 from django.contrib.auth import login,authenticate,logout
@@ -76,8 +76,13 @@ def view_question(request):
 	validate_login(request)
 	print(request.user.id)
 	questions = Question.objects.all().filter(author=request.user)
-	print(questions)
 	return render(request,"userapp/view_question.html",{"ques" : questions})
+
+def view_feed(request):
+	validate_login(request)
+	print(request.user.id)
+	questions = Question.objects.all()
+	return render(request,"userapp/view_feed.html",{"ques" : questions})
 
 
 def delete_question(request,id):
@@ -101,3 +106,25 @@ def update_question(request, id):
         form_obj = QuestionForm(instance=p)
     return render(request, "userapp/update_question.html", {"form": form_obj})
 
+def add_answer(request,id):
+	validate_login(request)
+	ques = get_object_or_404(Question, pk=id)
+	if request.method == "POST":
+		p1 = AnswerForm(request.POST)
+		if p1.is_valid():
+			temp1 = p1.cleaned_data
+			Answer.objects.create(user=request.user,question = ques,body = temp1["body"])
+			p1 = AnswerForm()
+			messages.success(request, "Answer added successfully." )
+	else:
+		p1 = AnswerForm()
+	return render(request, "userapp/add_answer.html", {"form": p1,"ques":Question.objects.get(pk=id)})
+
+
+def view_answer(request,id):
+	validate_login(request)
+	print(request.user.id)
+	ques = Question.objects.get(pk=id)
+	answers = Answer.objects.all().filter(question = ques)
+
+	return render(request,"userapp/view_feed.html",{"ans" : answers,"ques":ques})

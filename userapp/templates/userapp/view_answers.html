@@ -1,0 +1,41 @@
+{% extends 'userapp/base.html' %}
+
+{% block content %}
+<div class="row">
+<div class="col-sm-12">
+    {% if ans %}
+    <h4 class="text-center alert alert-info">Question :- {{ques.title}}</h4>
+    
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Sr.no</th>
+                <th>Author </th>
+                <th>Body </th>
+                
+                
+            </tr>
+            
+            {% for answer in ans %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{answer.user}}</td>
+                <td>{{answer.body}}</td>
+                
+                <td>
+                <a href="{% url 'add_answer' answer.id %}" class="btn btn-warning">Add your answer</a>
+                
+                </td>
+            </tr>
+            {% endfor %}
+            </th>
+        </tbody>
+        
+    </table>
+    {% else %}
+    <h4 class="text-center alert alert-info">No Answers added</h4>
+
+    {% endif %}
+</div>
+</div>
+{% endblock content %}

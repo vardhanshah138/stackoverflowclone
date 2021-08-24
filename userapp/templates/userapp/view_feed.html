@@ -1,0 +1,43 @@
+{% extends 'userapp/base.html' %}
+
+{% block content %}
+<div class="row">
+<div class="col-sm-12">
+    {% if ques %}
+    <h4 class="text-center alert alert-info">Question List</h4>
+    
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Sr.no</th>
+                <th>Author </th>
+                <th>Title </th>
+                <th>Body </th>
+                <th>Status </th>
+                
+            </tr>
+            
+            {% for question in ques %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{question.author}}</td>
+                <td>{{question.title}}</td>
+                <td>{{question.body}}</td>
+                <td>{{question.status}}</td>
+                <td>
+                <a href="{% url 'add_answer' question.id %}" class="btn btn-warning">Answer</a>
+                <a href="{% url 'view_answer' question.id %}" class="btn btn-warning">View All Answers</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </th>
+        </tbody>
+        
+    </table>
+    {% else %}
+    <h4 class="text-center alert alert-info">No Questions added</h4>
+
+    {% endif %}
+</div>
+</div>
+{% endblock content %}
