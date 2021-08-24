@@ -1,0 +1,12 @@
+{% extends 'userapp/base.html' %}
+{% block content %}
+<div class="col-sm-8 offset-2">
+    <h4 class="text-center alert alert-info">Update Question Information</h4>
+    <form action="" method="post">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <input type="submit" value="Update" class="btn btn-success"> 
+       <a href="{% url 'view_question' %}" class="btn btn-info">Back to Questions list</a>
+   </form>
+</div>
+{% endblock content %}

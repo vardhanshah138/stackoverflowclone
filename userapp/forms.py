@@ -18,3 +18,12 @@ class NewUserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+class QuestionForm(forms.ModelForm):
+	class Meta:
+		model = Question
+		fields = ["title","body","status"]
+		widgets = {
+            "title": forms.TextInput(attrs={"class": "form-control"}),
+            "body": forms.Textarea(attrs={"class": "form-control"}),
+        }

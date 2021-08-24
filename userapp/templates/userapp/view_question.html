@@ -1,0 +1,46 @@
+{% extends 'userapp/base.html' %}
+
+{% block content %}
+<div class="row">
+<div class="col-sm-12">
+    {% if ques %}
+    <h4 class="text-center alert alert-info">Question List</h4>
+    
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Sr.no</th>
+                <th>Author </th>
+                <th>Title </th>
+                <th>Body </th>
+                <th>Status </th>
+                
+            </tr>
+            
+            {% for question in ques %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{question.author}}</td>
+                <td>{{question.title}}</td>
+                <td>{{question.body}}</td>
+                <td>{{question.status}}</td>
+                <td>
+                    <a href="{% url 'update_question' question.id %}" class="btn btn-warning">Edit</a>
+                    <form action="{% url 'delete_question' question.id %}" class="d-inline" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-warning">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </th>
+        </tbody>
+        
+    </table>
+    {% else %}
+    <h4 class="text-center alert alert-info">No Questions added</h4>
+
+    {% endif %}
+</div>
+</div>
+{% endblock content %}
