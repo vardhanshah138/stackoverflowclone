@@ -5,19 +5,29 @@
 <div class="col-sm-12">
     {% if ques %}
     <h4 class="text-center alert alert-info">Question List</h4>
-    
+        <br>
+        {% if  ct %}
+            Common Tags are :- 
+            {% for cmt in ct %}
+                <a href="{% url 'tagged' cmt.slug %}"><span class="badge badge-info">{{cmt}}</span></a>
+            {% endfor %}
+        {% else %}
+            <p>No Tags added</p>
+        {% endif %}
+        <a href="{% url 'view_feed'  %}" class="btn btn-danger">Clear Tag</a>
+                <br>
+                <br>
+
             {% for question in ques %}
             
                 <h1>Q. {{forloop.counter}} {{question.title}}</h1>
                 
                 {% if  question.tags.all %}
-                
                 {% for t in question.tags.all %}
-                    <span class="badge badge-info">{{t}}</span>
+                    <a href="{% url 'tagged' t.slug %}"><span class="badge badge-info">{{t}}</span></a>
                 {% endfor %}
                 {% else %}
                 <p>No Tags added</p>
-
                 {% endif %}
 
                 

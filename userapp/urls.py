@@ -14,4 +14,5 @@ urlpatterns = [
     path("question/update/<int:id>/", views.update_question, name="update_question"),
     path("view_feed/add_answer/<int:id>/", views.add_answer, name="add_answer"),
     path("view_feed/view_answer/<int:id>/", views.view_answer, name="view_answer"),
+    path("tag/<slug:slug>/", views.tagged, name="tagged"),
 ]

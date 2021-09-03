@@ -66,6 +66,7 @@ def add_question(request):
 		p1 = QuestionForm(request.POST)
 		if p1.is_valid():
 			obj = p1.save(commit=False)
+			obj.slug = slugify(obj.title)
 			obj.author=request.user
 			obj.save()
 			p1.save_m2m()
@@ -86,7 +87,8 @@ def view_question(request):
 def view_feed(request):
 	validate_login(request)
 	questions = Question.objects.all()
-	return render(request,"userapp/view_feed.html",{"ques" : questions})
+	common_tags = Question.tags.most_common()[:4]
+	return render(request,"userapp/view_feed.html",{"ques" : questions,"ct":common_tags})
 
 
 def delete_question(request,id):
@@ -133,3 +135,8 @@ def view_answer(request,id):
 	return render(request,"userapp/view_answers.html",{"ans" : answers,"ques":ques})
 
 
+def tagged(request,slug):
+	common_tags = Question.tags.most_common()[:4]
+	tag = get_object_or_404(Tag,slug=slug)
+	question = Question.objects.filter(tags=tag)
+	return render(request,"userapp/view_feed.html",{"tag":tag,"ques":question,"ct":common_tags})

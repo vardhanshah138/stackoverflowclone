@@ -10,6 +10,7 @@ class Question(models.Model):
     body = models.TextField()
     status = models.BooleanField(default=False)
     tags = TaggableManager()
+    slug = models.SlugField(unique=True,max_length=100)
 
 class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
